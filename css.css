@@ -23,7 +23,7 @@ p {
 #header {
 	min-height: 100%;
 	height: 100%;
-	width: 320px;
+	width: 300px;
 	position: absolute;
 	top: 0;
 	right: 0;
@@ -69,7 +69,7 @@ a:hover {
 	float: left;
 	display: block;
 	font-weight: normal;
-	font-size: 38px;
+	font-size: 35px;
 	line-height: 60px;
 }
 
@@ -83,6 +83,7 @@ a:hover {
 	font-size: 20px;
 	line-height: 30px;
 	font-weight: bold;
+	display: block;
 }
 
 #header .color.selected {
@@ -95,7 +96,7 @@ a:hover {
 	width: 100%;
 	height: 100%;
 	box-sizing: border-box;
-	padding-right: 320px;
+	padding-right: 300px;
 	position: absolute;
 	top: 0;
 	left: 0;
