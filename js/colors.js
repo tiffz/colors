@@ -110,6 +110,10 @@ function Color (r, g, b) {
 	this.getLuminosity = function () {
 		return (0.2126 * red + 0.7152 * green + 0.0722 * blue);
 	}
+
+	this.average = function () {
+		return (red + green + blue) / 3.0; 
+	}
 	
 	this.toArray = function () {
 		return [r, g, b];
