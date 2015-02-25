@@ -107,10 +107,10 @@ function Color (r, g, b) {
 		return  code.toUpperCase();
 	}
 
-	this.whiteDistance = function () {
-		return 765 - red - green - blue;
+	this.getLuminosity = function () {
+		return (0.2126 * red + 0.7152 * green + 0.0722 * blue);
 	}
-
+	
 	this.toArray = function () {
 		return [r, g, b];
 	}

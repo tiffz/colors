@@ -55,7 +55,7 @@ window.onload = function (e) {
 	function colorTiles (generator, colors) {
 		var font = "#fff";
 		var seed = generator.getSeedColor();
-		if (seed != null && seed.whiteDistance() < 100) {
+		if (seed != null && seed.getLuminosity() > 220) {
 			font = "#222";
 		}
 		for (var i = 0; i < colors.length; i++) {
