@@ -13,13 +13,18 @@ function ColorGenerator (options) {
 
 	this.nextColor = function (subseed) {
 		var s = randomSeed + subseed * 7;
-		return new Color(nextRed(s), nextGreen(s + 1), nextBlue(s + 2));
+		return new Color(nextRed(s), nextGreen(s + 50), nextBlue(s + 100));
 	}
 
 	var nextRed = function (s) {
 		var base = randomComponent(s);
 		if (seed != null) {
+			if (seededRandom(s * 7) > 0.6) {
+				base = randomComponent(s, seed.r());
+			}
 			base = average(base, seed.r());
+		} else {
+			base = randomComponent(s);
 		}
 		return base;
 	}
@@ -27,7 +32,12 @@ function ColorGenerator (options) {
 	var nextGreen = function (s) {
 		var base = randomComponent(s);
 		if (seed != null) {
+			if (seededRandom(s * 7) > 0.6) {
+				base = randomComponent(s, seed.g());
+			}
 			base = average(base, seed.g());
+		} else {
+			base = randomComponent(s);
 		}
 		return base;
 	}
@@ -35,13 +45,34 @@ function ColorGenerator (options) {
 	var nextBlue = function (s) {
 		var base = randomComponent(s);
 		if (seed != null) {
+			if (seededRandom(s * 7) > 0.6) {
+				base = randomComponent(s, seed.b());
+			}
 			base = average(base, seed.b());
-		}
+		} 
 		return base;
 	}
 
-	var randomComponent = function (s) {
-		return Math.floor(seededRandom(s) * 255);
+	var randomComponent = function (s, c) {
+		if (c == null) {
+			return Math.floor(seededRandom(s) * 255);
+		}
+		var r = normalRandom(s, 2);
+		r = r - 0.5;
+		r = Math.floor(r * 255);
+		c -= r;
+		if (c > 255) {
+			c = 510 - c;
+		} 
+		return Math.abs(c);
+	}
+
+	var normalRandom = function (s, n) {
+		var sum = 0;
+		for (var i = 0; i < n; i++) {
+			sum += seededRandom (s + i);
+		}
+		return sum / n;
 	}
 
 	var seededRandom = function (s) {
