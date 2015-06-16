@@ -1,10 +1,37 @@
+function ColorHistory () {
+	var head = null;
+	this.push = function (generator) {
+		generator.setNext(head);
+		head = generator;
+	}
+
+	this.pop = function () {
+		var result = head;
+		if (head) {
+			head = head.getNext();
+		}
+		return result;
+	}
+}
+
 function ColorGenerator (options) {
+	var next = null;
+
 	var seed = null;
 	var randomSeed = 1000000 + Math.random() * 1000000;
 	var parent = null;
+
 	if (options != null) {
 		seed = options.seed;
 		parent = options.parent;
+	}
+
+	this.setNext = function (n) {
+		next = n;
+	}
+
+	this.getNext = function () {
+		return next;
 	}
 
 	this.getSeedColor = function () {

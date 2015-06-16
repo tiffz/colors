@@ -2,6 +2,7 @@ window.onload = function (e) {
 	var selected = 0;
 	var palette = new ColorPalette(9);
 	var generator = new ColorGenerator({seed: palette.getSeed(0)});
+	var history = new ColorHistory();
 	var colors = document.getElementById("palette").getElementsByClassName("color");
 
 	colorTiles(generator, colors);
@@ -11,6 +12,8 @@ window.onload = function (e) {
 		addButton(modeSelector, i, i === selected);
 	}
 
+	document.getElementById("back").addEventListener("click", restorePrevious);
+
 	function addButton (parent, id, select) {
 		var option = palette.createButtonHTML(id);
 		if (select) {
@@ -19,6 +22,14 @@ window.onload = function (e) {
 		option.addEventListener("click", changeColorMode, false);
 		parent.appendChild(option);
 		return option;
+	}
+
+	function restorePrevious () {
+		var last = history.pop();
+		if (last) {
+			generator = last; 
+			colorTiles(generator, colors);
+		}
 	}
 
 	function changeColorMode (e) {
@@ -47,7 +58,8 @@ window.onload = function (e) {
 
 		selected = id;
 		current.className = "color selected";
-
+		
+		history.push(generator);
 		generator = new ColorGenerator({seed: palette.getSeed(id), parent: generator});
 		colorTiles(generator, colors);
 	}
